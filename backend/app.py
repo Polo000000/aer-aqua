@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
 from supabase import create_client
 from collections import defaultdict
-import pandas as pd
+
 import io
 
 app = Flask(__name__)
@@ -288,7 +288,7 @@ def export_csv():
     if not response.data:
         return jsonify({'success': False, 'error': 'No data'}), 404
     
-    df = pd.DataFrame(response.data)
+    df = response.data
     output = io.StringIO()
     df.to_csv(output, index=False, encoding='utf-8')
     
